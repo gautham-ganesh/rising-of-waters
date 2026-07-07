@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .history-container {
+            width: min(1200px, calc(100vw - 40px));
+            max-width: 100%;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+        }
+
+        .history-table thead {
+            background: linear-gradient(135deg, #38bdf8 0%, #7c3aed 100%);
+        }
+
+        .history-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: white;
+            border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .history-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+            color: #cbd5e1;
+        }
+
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .history-table tbody tr:hover {
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .timestamp {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .risk-badge.danger {
+            background: rgba(248, 113, 113, 0.15);
+            color: #fecaca;
+            border: 1px solid rgba(248, 113, 113, 0.3);
+        }
+
+        .risk-badge.success {
+            background: rgba(52, 211, 153, 0.15);
+            color: #a7f3d0;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .inputs-summary {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .probability {
+            text-align: right;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #94a3b8;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 12px;
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 768px) {
+            .history-container {
+                width: 100%;
+            }
+
+            .history-table {
+                font-size: 0.9rem;
+            }
+
+            .history-table th,
+            .history-table td {
+                padding: 10px;
+            }
+
+            .inputs-summary {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container history-container">
+        <div class="page-header">
+            <div>
+                <h2>Prediction History</h2>
+                <p>Review all previous flood risk predictions.</p>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <a href="/prediction" class="nav-link">New Prediction</a>
+                <a href="/" class="nav-link">Home</a>
+            </div>
+        </div>
+
+        {% if history|length > 0 %}
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Risk Level</th>
+                        <th>Flood Probability</th>
+                        <th>Input Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in history %}
+                    <tr>
+                        <td>
+                            <span class="timestamp">{{ entry.timestamp }}</span>
+                        </td>
+                        <td>
+                            <span class="risk-badge {% if entry.result.flood %}danger{% else %}success{% endif %}">
+                                {% if entry.result.flood %}HIGH RISK{% else %}SAFE{% endif %}
+                            </span>
+                        </td>
+                        <td class="probability">
+                            {{ "%.2f"|format(entry.result.flood_probability) }}%
+                        </td>
+                        <td class="inputs-summary">
+                            Temp: {{ "%.1f"|format(entry.inputs.temp) }}°C | 
+                            Humidity: {{ "%.0f"|format(entry.inputs.humidity) }}% | 
+                            Rainfall: {{ "%.0f"|format(entry.inputs.annual_rainfall) }}mm
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="page-actions">
+                <a href="/" class="button primary">Back to Home</a>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <h3>No Predictions Yet</h3>
+                <p>Make your first flood risk prediction to see it in history.</p>
+                <a href="/prediction" class="button primary" style="display: inline-block; margin-top: 12px;">Start Prediction</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

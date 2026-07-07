@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h2>Prediction Result</h2>
+                <p>See the flood-risk outcome on the next page.</p>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <a href="/history" class="nav-link">View History</a>
+                <a href="/prediction" class="nav-link">Try Again</a>
+            </div>
+        </div>
+
+        <div id="result" class="{% if result.flood %}danger{% else %}success{% endif %}" style="display:block;">
+            <div id="riskLevel">
+                {% if result.flood %}
+                WARNING: HIGH FLOOD RISK DETECTED
+                {% else %}
+                STATUS: SAFE - LOW FLOOD RISK
+                {% endif %}
+            </div>
+            <div id="probabilityText">
+                Flood Probability: {{ "%.2f"|format(result.flood_probability) }}% | Safety Chance: {{ "%.2f"|format(result.no_flood_probability) }}%
+            </div>
+        </div>
+    </div>
+</body>
+</html>

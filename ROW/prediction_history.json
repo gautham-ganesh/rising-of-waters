@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2026-07-06 20:16:32",
+    "inputs": {
+      "temp": 28.5,
+      "humidity": 65.0,
+      "cloud_cover": 45.0,
+      "annual_rainfall": 1200.0,
+      "jan_feb": 250.0,
+      "mar_may": 320.0,
+      "jun_sep": 420.0,
+      "oct_dec": 210.0,
+      "avg_june": 145.0,
+      "sub_index": 1.8
+    },
+    "result": {
+      "flood": false,
+      "flood_probability": 1.0,
+      "no_flood_probability": 99.0
+    }
+  },
+  {
+    "timestamp": "2026-07-06 22:22:57",
+    "inputs": {
+      "temp": 1.3,
+      "humidity": 14.0,
+      "cloud_cover": 0.0,
+      "annual_rainfall": 0.6,
+      "jan_feb": 1.2,
+      "mar_may": 0.6,
+      "jun_sep": 0.9,
+      "oct_dec": 1.3,
+      "avg_june": 1.1,
+      "sub_index": 1.2
+    },
+    "result": {
+      "flood": false,
+      "flood_probability": 2.0,
+      "no_flood_probability": 98.0
+    }
+  }
+]
