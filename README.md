@@ -7,7 +7,6 @@ An intelligent, ML-powered early-warning system that predicts flood risk from hi
 ![scikit--learn](https://img.shields.io/badge/scikit--learn-ML-orange?logo=scikitlearn)
 ![XGBoost](https://img.shields.io/badge/XGBoost-Best%20Model-green)
 ![IBM Cloud](https://img.shields.io/badge/Deployment-IBM%20Cloud-054ADA?logo=ibmcloud)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ---
 
