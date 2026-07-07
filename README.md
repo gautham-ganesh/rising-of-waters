@@ -141,7 +141,7 @@ flood-prediction-system/
 ├── app/
 │   ├── static/                        # CSS/JS assets
 │   ├── templates/
-│   │   ├── index.html                 # Input form
+│   │   ├── index.html,history.html    # Input form
 │   │   └── result.html                # Prediction output
 │   └── app.py                         # Flask application
 │
